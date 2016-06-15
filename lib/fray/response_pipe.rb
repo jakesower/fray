@@ -36,17 +36,17 @@ module Fray
 
 
     def then(func, *args)
-      new_then << {
+      new_then = {
         function: func,
         args: args
       }
 
-      new(@thens + [new_then], @catch)
+      ResponsePipe.new(@thens + [new_then], @catch)
     end
 
 
     def catch(func)
-      new(@thens, func)
+      ResponsePipe.new(@thens, func)
     end
 
 
