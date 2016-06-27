@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Fray Dataset Schema",
+  "description": "Schema representing the results of a query",
+  "type": "object",
+  "required": [ "resource_type", "resources", "related" ],
+  "properties": {
+    "resource_type": {
+      "type": "string"
+    },
+    "resources": {
+      "description": "An array containing all of the *primary* resource results",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/resource"
+      },
+      "uniqueItems": true
+    },
+    "related": {
+      "description": "An object containing linked resources by resource type",
+      "type": "object",
+      "patternProperties": {
+        "^[A-Za-z0-9_]+$": {
+          "description": "Object of resources of a particular type",
+          "type": "object",
+          "patternProperties": {
+            "^[A-Za-z0-9_]+": {
+              "description": "The resource with a type and ID",
+              "type": {
+                "$ref": "#/definitions/resource"
+              }
+            }
+          }
+        }
+      }
+    },
+    "meta": {
+      "description": "Non-standard meta-information",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+
+  "definitions": {
+    "resource": {
+      "description": "A single resource",
+      "type": "object",
+      "required": [ "id", "type", "attributes", "relationships" ],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "relationships": {
+          "description": "Related resources by type",
+          "type": "object",
+          "patternProperties": {
+            "^[A-Za-z0-9_]+$": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

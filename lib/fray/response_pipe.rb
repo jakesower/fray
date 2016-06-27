@@ -1,5 +1,5 @@
 #
-# Monad for handling errors as part of a chain of functions. Works much like
+# Functor for handling errors as part of a chain of functions. Works much like
 # the pipe operator |> from Elixir, but also handles responses. If a function
 # within a `then` returns a Fray::Response (or subclass thereof), the
 # remainder of the pipe will not be used. Rather, the `catch` function will be
@@ -57,7 +57,7 @@ module Fray
         first, rest = thens[0], thens[1..-1]
         next_state = first[:function].call(state, *first[:args])
 
-        next_state.is_a?(Fray::Response) ?
+        next_state.is_a?(Fray::Data::Response) ?
           @catch.call(next_state) :
           run(next_state, rest)
       end

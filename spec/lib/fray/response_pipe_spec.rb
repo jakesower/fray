@@ -4,8 +4,8 @@ RSpec.describe Fray::ResponsePipe do
   context 'with some functions' do
     subject(:pipe) { Fray::ResponsePipe.new }
     let(:response) {
-      Fray::Response.new(
-        code: 200,
+      Fray::Data::Response.new(
+        code: '200',
         headers: {},
         body: ''
       )
@@ -39,18 +39,18 @@ RSpec.describe Fray::ResponsePipe do
     end
 
 
-    it 'aborts on getting a Fray::Response' do
+    it 'aborts on getting a Fray::Data::Response' do
       result = pipe.
         then(->(x) { x * 2 }).
         then(->(_) { response }).
         then(->(_) { 1 }).
         run(1)
 
-      expect(result).to be_instance_of(Fray::Response)
+      expect(result).to be_instance_of(Fray::Data::Response)
     end
 
 
-    it 'catches Fray::Responses' do
+    it 'catches Fray::Data::Responses' do
       result = pipe.
         then(->(x) { x * 2 }).
         then(->(_) { response }).
@@ -62,7 +62,7 @@ RSpec.describe Fray::ResponsePipe do
     end
 
 
-    it "doesn't invoke catch if no Fray::Response is encountered" do
+    it "doesn't invoke catch if no Fray::Data::Response is encountered" do
       result = pipe.
         then(->(x) { x * 2 }).
         then(->(_) { 'Haven' }).

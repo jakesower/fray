@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Fray Response",
+  "description": "Schema representing the final result of a Fray pipe",
+  "type": "object",
+  "required": [ "code", "headers", "body" ],
+  "properties": {
+    "code": {
+      "description": "HTTP code",
+      "type": "string",
+      "pattern": "^[0-9]{3}$"
+    },
+    "headers": {
+      "description": "HTTP headers",
+      "type": "object",
+      "additionalProperties": true
+    },
+    "body": {
+      "description": "The contents of the HTTP body",
+      "type": "string"
+    }
+  }
+}
