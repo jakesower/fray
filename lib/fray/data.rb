@@ -7,7 +7,7 @@ module Fray::Data
   class Base < OpenStruct
     def initialize(hash)
       if JSON::Validator.validate(__schema, hash)
-        super(hash)
+        super(JSON.parse(JSON.generate(hash)))
         self.freeze
       else
         e = "#{hash.inspect} failed schema validation:\n\n" +
