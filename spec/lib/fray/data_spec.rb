@@ -9,7 +9,7 @@ RSpec.describe Fray::Data do
         body: ''
       )
 
-      expect(r.code).to eq('200')
+      expect(r.status).to eq('200')
     end
 
 

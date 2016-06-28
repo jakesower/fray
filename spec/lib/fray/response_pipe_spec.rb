@@ -5,7 +5,7 @@ RSpec.describe Fray::ResponsePipe do
     subject(:pipe) { Fray::ResponsePipe.new }
     let(:response) {
       Fray::Data::Response.new(
-        code: '200',
+        status: '200',
         headers: {},
         body: ''
       )
