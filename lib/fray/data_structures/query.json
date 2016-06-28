@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Fray Query",
+  "description": "Schema representing query to be sent to a store",
+  "type": "object",
+  "required": [
+    "resource_type"
+  ],
+
+  "properties": {
+    "resource_type": {
+      "description": "The type of the primary resource(s)",
+      "type": "string"
+    },
+    "id": {
+      "description": "The ID of a single resource (used when appropriate)",
+      "type": "string"
+    },
+    "fields": {
+      "description": "List of fields to restrict results to (if absent, all fields will be included)",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "include": {
+      "description": "Resource types related to the primary",
+      "type": "string"
+    },
+    "filters": {
+      "description": "Filters to be applied to the query",
+      "type": "object"
+    },
+    "page": {
+      "type": "object",
+      "required": [ "number", "size" ],
+      "properties": {
+        "number": { "type": "string" },
+        "size": { "type": "string" }
+      }
+    }
+  }
+}
