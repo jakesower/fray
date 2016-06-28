@@ -17,9 +17,7 @@ module Fray::Data
     end
   end
 
-  #
-  # Do the dirty work of compiling the data JSON.
-  #
+
   def self.define_schema_class(name, schema)
     const_name = name.split('_').map{|chunk| chunk[0].upcase + chunk[1..-1]}.join('')
     klass = Class.new(Base) do
@@ -32,7 +30,10 @@ module Fray::Data
   end
 end
 
-# prime the class
+
+#
+# Run through the json schemas and compile them
+#
 dir = File.dirname(File.expand_path(__FILE__))
 Dir["#{dir}/data_structures/*.json"].each do |path|
   file_name = File.basename(path, '.json')

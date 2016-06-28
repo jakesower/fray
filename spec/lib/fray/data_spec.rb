@@ -4,7 +4,7 @@ RSpec.describe Fray::Data do
   context "A Fray::Response" do
     it "works with good inputs" do
       r = Fray::Data::Response.new(
-        code: '200',
+        status: '200',
         headers: {},
         body: ''
       )
@@ -16,7 +16,7 @@ RSpec.describe Fray::Data do
     it "fails with bad inputs" do
       expect {
         r = Fray::Data::Response.new(
-          code: '200',
+          status: '200',
           headers: {},
           body: []
         )

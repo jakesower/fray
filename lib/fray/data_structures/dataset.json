@@ -27,11 +27,13 @@
             "^[A-Za-z0-9_]+": {
               "description": "The resource with a type and ID",
               "type": {
-                "$ref": "#/definitions/resource"
-              }
-            }
-          }
-        }
+                "$ref": "#/definitions/resource" }}}}}},
+    "statistics": {
+      "description": "All statistical meta-information about the request",
+      "type": "object",
+      "properties": {
+        "count": { "type": "integer" },
+        "total_count": { "type": "integer" }
       }
     },
     "meta": {
