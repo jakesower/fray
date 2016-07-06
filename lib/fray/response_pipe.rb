@@ -28,39 +28,10 @@
 # Returns 5
 #
 module Fray
-  class ResponsePipe
+  class ResponsePipe < AbortablePipe
     def initialize(thens = [], c = nil)
-      @thens = thens
-      @catch = c || ->(x) { x }
-    end
-
-
-    def then(func, *args)
-      new_then = {
-        function: func,
-        args: args
-      }
-
-      ResponsePipe.new(@thens + [new_then], @catch)
-    end
-
-
-    def catch(func)
-      ResponsePipe.new(@thens, func)
-    end
-
-
-    def run(state = nil, thens = @thens)
-      if thens.empty?
-        state
-      else
-        first, rest = thens[0], thens[1..-1]
-        next_state = first[:function].call(state, *first[:args])
-
-        next_state.is_a?(Fray::Data::Response) ?
-          @catch.call(next_state) :
-          run(next_state, rest)
-      end
+      abort_predicate = ->(state) { state.is_a?(Fray::Data::Response) }
+      super(abort_predicate, thens, c)
     end
 
   end
